@@ -1,6 +1,11 @@
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [answer, setAnswer] = useState('')
+  const [choices, setChoices] = useState([])
+  const [userAnswer, setUserAnswer] = useState('')
+
   return (
     <section className="container">
       <h1 className="col-full">Hex Color Code Game</h1>
