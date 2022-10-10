@@ -1,0 +1,28 @@
+.container {
+  width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.color-box {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  background-color: red;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.col-full {
+  text-align: center;
+  width: 100%;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+}
