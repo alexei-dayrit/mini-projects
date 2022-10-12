@@ -34,9 +34,14 @@ function App() {
   };
 
   useEffect(() => {
-    const randomColor = generateRandomColor();
-    setAnswer(randomColor);
+    const correctColor = generateRandomColor();
+    setAnswer(correctColor);
+    setChoices([correctColor, generateRandomColor(), generateRandomColor()]);
   }, []);
+
+  const buttonChoices = choices.map((choice, index) => (
+    <button key={index}>{choice}</button>
+  ));
 
   return (
     <section className="container">
@@ -47,9 +52,7 @@ function App() {
           <div className="color-box" style={{ backgroundColor: answer }}></div>
         </div>
         <h2 className="col-full">Take your guess:</h2>
-        <button>{choices[0]}</button>
-        <button>2</button>
-        <button>3</button>
+        {buttonChoices}
       </div>
     </section>
   );
