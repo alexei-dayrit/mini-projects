@@ -6,9 +6,8 @@ function App() {
   const [choices, setChoices] = useState([]);
   const [userAnswer, setUserAnswer] = useState('');
 
-  // hex code = 6 digits (0-9 and/or A-F)
-  const generateColor = () => {
-    let color = '#'
+  const generateRandomColor = () => {
+    let color = '#';
     const digits = [
       '0',
       '1',
@@ -28,14 +27,15 @@ function App() {
       'F'
     ];
     for (let i = 0; i < 6; i++) {
-      const randomDigit = Math.floor(Math.random() * digits.length)
-      color += digits[randomDigit]
+      const randomDigit = Math.floor(Math.random() * digits.length);
+      color += digits[randomDigit];
     }
-    setAnswer(color);
+    return color;
   };
 
   useEffect(() => {
-    generateColor();
+    const randomColor = generateRandomColor();
+    setAnswer(randomColor);
   }, []);
 
   return (
@@ -44,12 +44,10 @@ function App() {
 
       <div className="flex-center">
         <div className="col-full">
-          <div className="color-box" style={{ backgroundColor: answer }}>
-            FULL COLOR BOX
-          </div>
+          <div className="color-box" style={{ backgroundColor: answer }}></div>
         </div>
         <h2 className="col-full">Take your guess:</h2>
-        <button>1</button>
+        <button>{choices[0]}</button>
         <button>2</button>
         <button>3</button>
       </div>
