@@ -51,7 +51,7 @@ function App() {
   }, []);
 
   const buttonChoices = choices.map((choice, index) => (
-    <button onClick={handleButtonClick} key={index} value={choice}>{choice}</button>
+    <button onClick={handleButtonClick} key={index} value={choice} disabled={userAnswer}>{choice}</button>
   ));
 
   return (
@@ -65,6 +65,7 @@ function App() {
         <h2 className="col-full">Take your guess:</h2>
         {buttonChoices}
       </div>
+
       {userAnswer
         ? userAnswer === answer
           ? <h2 className='results' style={{color: 'green'}}>Correct!</h2>
