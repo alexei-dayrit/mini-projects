@@ -81,7 +81,12 @@ function App() {
     return (
       <button
         style={
-          userAnswer
+          userAnswer === choice
+            ? {
+                border: '3px solid black',
+                backgroundColor: choice === answer ? 'green' : 'red'
+              }
+            : userAnswer
             ? choice === answer
               ? { backgroundColor: 'green' }
               : { backgroundColor: 'red' }
@@ -113,14 +118,12 @@ function App() {
 
       {userAnswer ? (
         userAnswer === answer ? (
-          <h2 className="results correct">
-            Correct!
-          </h2>
+          <h2 className="results correct">Correct!</h2>
         ) : (
           <div className="results">
             <h1 className="incorrect">Incorrect!</h1>
             <h2>
-              Answer is <span className='correct'>{answer}</span>
+              The correct answer is <span className="correct">{answer}</span>
             </h2>
           </div>
         )
