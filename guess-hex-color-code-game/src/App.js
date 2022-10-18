@@ -35,8 +35,14 @@ function App() {
 
   useEffect(() => {
     const correctColor = generateRandomColor();
+    const randomizeChoices = () => {
+      const orderedChoices = [correctColor, generateRandomColor(), generateRandomColor()]
+      const randomizedChoices = orderedChoices.sort((a, b) => 0.5 - Math.random())
+      return randomizedChoices
+    };
+
     setAnswer(correctColor);
-    setChoices([correctColor, generateRandomColor(), generateRandomColor()]);
+    setChoices(randomizeChoices());
   }, []);
 
   const buttonChoices = choices.map((choice, index) => (
