@@ -78,7 +78,6 @@ function App() {
   }, []);
 
   const buttonChoices = choices.map((choice, index) => {
-    console.log('firing');
     return (
       <button
         style={
@@ -97,7 +96,6 @@ function App() {
     );
   });
 
-  console.log(answer);
   return (
     <section className="container">
       <h1 className="col-full">Hex Color Code Game</h1>
@@ -115,13 +113,16 @@ function App() {
 
       {userAnswer ? (
         userAnswer === answer ? (
-          <h2 className="results" style={{ color: 'green' }}>
+          <h2 className="results correct">
             Correct!
           </h2>
         ) : (
-          <h2 className="results incorrect">
-            Incorrect! <span className="answer-text">Answer is {answer}</span>
-          </h2>
+          <div className="results">
+            <h1 className="incorrect">Incorrect!</h1>
+            <h2>
+              Answer is <span className='correct'>{answer}</span>
+            </h2>
+          </div>
         )
       ) : null}
     </section>

@@ -43,6 +43,6 @@ button:hover {
   color: red;
 }
 
-.answer-text {
-  color: black;
+.correct {
+  color: green;
 }
