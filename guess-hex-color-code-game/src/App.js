@@ -35,15 +35,42 @@ function App() {
 
   const handleButtonClick = event => {
     if (event.target.tagName !== 'BUTTON') return;
-    setUserAnswer(event.target.value)
-  }
+    setUserAnswer(event.target.value);
+  };
+
+  const handleRestartClick = event => {
+    if (event.target.value !== 'Restart') return;
+
+    setUserAnswer('')
+    const correctColor = generateRandomColor();
+    const randomizeChoices = () => {
+      const orderedChoices = [
+        correctColor,
+        generateRandomColor(),
+        generateRandomColor()
+      ];
+      const randomizedChoices = orderedChoices.sort(
+        (a, b) => 0.5 - Math.random()
+      );
+      return randomizedChoices;
+    };
+
+    setAnswer(correctColor);
+    setChoices(randomizeChoices());
+  };
 
   useEffect(() => {
     const correctColor = generateRandomColor();
     const randomizeChoices = () => {
-      const orderedChoices = [correctColor, generateRandomColor(), generateRandomColor()]
-      const randomizedChoices = orderedChoices.sort((a, b) => 0.5 - Math.random())
-      return randomizedChoices
+      const orderedChoices = [
+        correctColor,
+        generateRandomColor(),
+        generateRandomColor()
+      ];
+      const randomizedChoices = orderedChoices.sort(
+        (a, b) => 0.5 - Math.random()
+      );
+      return randomizedChoices;
     };
 
     setAnswer(correctColor);
@@ -51,7 +78,13 @@ function App() {
   }, []);
 
   const buttonChoices = choices.map((choice, index) => (
-    <button onClick={handleButtonClick} key={index} value={choice} disabled={userAnswer}>{choice}</button>
+    <button
+      onClick={handleButtonClick}
+      key={index}
+      value={choice}
+      disabled={userAnswer}>
+      {choice}
+    </button>
   ));
 
   return (
@@ -62,17 +95,22 @@ function App() {
         <div className="col-full">
           <div className="color-box" style={{ backgroundColor: answer }}></div>
         </div>
+        <button onClick={handleRestartClick} value='Restart'>Restart</button>
         <h2 className="col-full">Take your guess:</h2>
         {buttonChoices}
       </div>
 
-      {userAnswer
-        ? userAnswer === answer
-          ? <h2 className='results' style={{color: 'green'}}>Correct!</h2>
-          : <h2 className='results' style={{color: 'red'}}>Incorrect!</h2>
-        : null
-      }
-
+      {userAnswer ? (
+        userAnswer === answer ? (
+          <h2 className="results" style={{ color: 'green' }}>
+            Correct!
+          </h2>
+        ) : (
+          <h2 className="results" style={{ color: 'red' }}>
+            Incorrect!
+          </h2>
+        )
+      ) : null}
     </section>
   );
 }
