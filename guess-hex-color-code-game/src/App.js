@@ -65,6 +65,13 @@ function App() {
         <h2 className="col-full">Take your guess:</h2>
         {buttonChoices}
       </div>
+      {userAnswer
+        ? userAnswer === answer
+          ? <h2 className='results' style={{color: 'green'}}>Correct!</h2>
+          : <h2 className='results' style={{color: 'red'}}>Incorrect!</h2>
+        : null
+      }
+
     </section>
   );
 }
