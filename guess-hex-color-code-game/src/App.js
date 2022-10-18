@@ -33,6 +33,11 @@ function App() {
     return color;
   };
 
+  const handleButtonClick = event => {
+    if (event.target.tagName !== 'BUTTON') return;
+    setUserAnswer(event.target.value)
+  }
+
   useEffect(() => {
     const correctColor = generateRandomColor();
     const randomizeChoices = () => {
@@ -46,7 +51,7 @@ function App() {
   }, []);
 
   const buttonChoices = choices.map((choice, index) => (
-    <button key={index}>{choice}</button>
+    <button onClick={handleButtonClick} key={index} value={choice}>{choice}</button>
   ));
 
   return (
