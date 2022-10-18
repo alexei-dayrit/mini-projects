@@ -41,7 +41,7 @@ function App() {
   const handleRestartClick = event => {
     if (event.target.value !== 'Restart') return;
 
-    setUserAnswer('')
+    setUserAnswer('');
     const correctColor = generateRandomColor();
     const randomizeChoices = () => {
       const orderedChoices = [
@@ -77,16 +77,27 @@ function App() {
     setChoices(randomizeChoices());
   }, []);
 
-  const buttonChoices = choices.map((choice, index) => (
-    <button
-      onClick={handleButtonClick}
-      key={index}
-      value={choice}
-      disabled={userAnswer}>
-      {choice}
-    </button>
-  ));
+  const buttonChoices = choices.map((choice, index) => {
+    console.log('firing');
+    return (
+      <button
+        style={
+          userAnswer
+            ? choice === answer
+              ? { backgroundColor: 'green' }
+              : { backgroundColor: 'red' }
+            : null
+        }
+        onClick={handleButtonClick}
+        key={index}
+        value={choice}
+        disabled={userAnswer}>
+        {choice}
+      </button>
+    );
+  });
 
+  console.log(answer);
   return (
     <section className="container">
       <h1 className="col-full">Hex Color Code Game</h1>
@@ -95,7 +106,9 @@ function App() {
         <div className="col-full">
           <div className="color-box" style={{ backgroundColor: answer }}></div>
         </div>
-        <button onClick={handleRestartClick} value='Restart'>Restart</button>
+        <button onClick={handleRestartClick} value="Restart">
+          Restart
+        </button>
         <h2 className="col-full">Take your guess:</h2>
         {buttonChoices}
       </div>
@@ -106,8 +119,8 @@ function App() {
             Correct!
           </h2>
         ) : (
-          <h2 className="results" style={{ color: 'red' }}>
-            Incorrect!
+          <h2 className="results incorrect">
+            Incorrect! <span className="answer-text">Answer is {answer}</span>
           </h2>
         )
       ) : null}
