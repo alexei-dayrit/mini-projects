@@ -1,6 +1,24 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
+const setButtonStyling = (answer, userAnswer, text) => {
+  let style = {};
+  if (userAnswer) {
+    if (text === answer) {
+      style.backgroundColor = 'green';
+    } else if (text !== answer) {
+      style.backgroundColor = 'red';
+    }
+  }
+  if (userAnswer === text) {
+    style = {
+      border: '3px solid black',
+      backgroundColor: text === answer ? 'green' : 'red'
+    };
+  }
+  return style;
+};
+
 function App() {
   const [answer, setAnswer] = useState('');
   const [choices, setChoices] = useState([]);
@@ -80,18 +98,7 @@ function App() {
   const buttonChoices = choices.map((choice, index) => {
     return (
       <button
-        style={
-          userAnswer === choice
-            ? {
-                border: '3px solid black',
-                backgroundColor: choice === answer ? 'green' : 'red'
-              }
-            : userAnswer
-            ? choice === answer
-              ? { backgroundColor: 'green' }
-              : { backgroundColor: 'red' }
-            : null
-        }
+        style={setButtonStyling(answer, userAnswer, choice)}
         onClick={handleButtonClick}
         key={index}
         value={choice}
@@ -122,9 +129,9 @@ function App() {
         ) : (
           <div className="results">
             <h1 className="incorrect">Incorrect!</h1>
-            <h2>
+            <h3>
               The correct answer is <span className="correct">{answer}</span>
-            </h2>
+            </h3>
           </div>
         )
       ) : null}
