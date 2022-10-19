@@ -23,10 +23,26 @@
 }
 
 button {
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 1.2rem;
   margin: 1rem;
+  color: white;
+  background-color: gray;
+  border: none;
+}
+
+button:hover {
+  background-color: darkgray;
+  transform: scale(1.1);
 }
 
 .results {
   text-align: center;
+}
+
+.incorrect {
+  color: red;
+}
+
+.correct {
+  color: green;
 }

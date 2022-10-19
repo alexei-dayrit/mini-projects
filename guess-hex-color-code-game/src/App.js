@@ -1,6 +1,62 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
+const setButtonStyling = (answer, userAnswer, text) => {
+  let style = {};
+  if (userAnswer) {
+    if (text === answer) {
+      style.backgroundColor = 'green';
+    } else if (text !== answer) {
+      style.backgroundColor = 'red';
+    }
+  }
+  if (userAnswer === text) {
+    style = {
+      border: '3px solid black',
+      backgroundColor: text === answer ? 'green' : 'red'
+    };
+  }
+  return style;
+};
+
+const renderResults = (userAnswer, correctAnswer) => {
+  if (userAnswer) {
+    if (userAnswer === correctAnswer) {
+      return <h2 className="results correct">Correct!</h2>;
+    } else {
+      return (
+        <div className="results">
+          <h1 className="incorrect">Incorrect!</h1>
+          <h3>
+            The correct answer is{' '}
+            <span className="correct">{correctAnswer}</span>
+          </h3>
+        </div>
+      );
+    }
+  }
+};
+
+const shuffle = array => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
+  }
+  return array;
+};
+
+const createGame = (generateRandomColor, setAnswer, setChoices) => {
+  const correctColor = generateRandomColor();
+  const orderedChoices = [
+    correctColor,
+    generateRandomColor(),
+    generateRandomColor()
+  ];
+  const randomizedChoices = shuffle(orderedChoices);
+  setAnswer(correctColor);
+  setChoices(randomizedChoices);
+};
+
 function App() {
   const [answer, setAnswer] = useState('');
   const [choices, setChoices] = useState([]);
@@ -41,51 +97,26 @@ function App() {
   const handleRestartClick = event => {
     if (event.target.value !== 'Restart') return;
 
-    setUserAnswer('')
-    const correctColor = generateRandomColor();
-    const randomizeChoices = () => {
-      const orderedChoices = [
-        correctColor,
-        generateRandomColor(),
-        generateRandomColor()
-      ];
-      const randomizedChoices = orderedChoices.sort(
-        (a, b) => 0.5 - Math.random()
-      );
-      return randomizedChoices;
-    };
-
-    setAnswer(correctColor);
-    setChoices(randomizeChoices());
+    setUserAnswer('');
+    createGame(generateRandomColor, setAnswer, setChoices);
   };
 
   useEffect(() => {
-    const correctColor = generateRandomColor();
-    const randomizeChoices = () => {
-      const orderedChoices = [
-        correctColor,
-        generateRandomColor(),
-        generateRandomColor()
-      ];
-      const randomizedChoices = orderedChoices.sort(
-        (a, b) => 0.5 - Math.random()
-      );
-      return randomizedChoices;
-    };
-
-    setAnswer(correctColor);
-    setChoices(randomizeChoices());
+    createGame(generateRandomColor, setAnswer, setChoices);
   }, []);
 
-  const buttonChoices = choices.map((choice, index) => (
-    <button
-      onClick={handleButtonClick}
-      key={index}
-      value={choice}
-      disabled={userAnswer}>
-      {choice}
-    </button>
-  ));
+  const buttonChoices = choices.map((choice, index) => {
+    return (
+      <button
+        style={setButtonStyling(answer, userAnswer, choice)}
+        onClick={handleButtonClick}
+        key={index}
+        value={choice}
+        disabled={userAnswer}>
+        {choice}
+      </button>
+    );
+  });
 
   return (
     <section className="container">
@@ -95,22 +126,13 @@ function App() {
         <div className="col-full">
           <div className="color-box" style={{ backgroundColor: answer }}></div>
         </div>
-        <button onClick={handleRestartClick} value='Restart'>Restart</button>
+        <button onClick={handleRestartClick} value="Restart">
+          Restart
+        </button>
         <h2 className="col-full">Take your guess:</h2>
         {buttonChoices}
       </div>
-
-      {userAnswer ? (
-        userAnswer === answer ? (
-          <h2 className="results" style={{ color: 'green' }}>
-            Correct!
-          </h2>
-        ) : (
-          <h2 className="results" style={{ color: 'red' }}>
-            Incorrect!
-          </h2>
-        )
-      ) : null}
+      {renderResults(userAnswer, answer)}
     </section>
   );
 }
