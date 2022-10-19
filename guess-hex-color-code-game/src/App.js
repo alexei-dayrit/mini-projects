@@ -37,6 +37,24 @@ const renderResults = (userAnswer, correctAnswer) => {
   }
 };
 
+const createGame = (generateRandomColor, setAnswer, setChoices) => {
+  const correctColor = generateRandomColor();
+  const randomizeChoices = () => {
+    const orderedChoices = [
+      correctColor,
+      generateRandomColor(),
+      generateRandomColor()
+    ];
+    const randomizedChoices = orderedChoices.sort(
+      (a, b) => 0.5 - Math.random()
+    );
+    return randomizedChoices;
+  };
+
+  setAnswer(correctColor);
+  setChoices(randomizeChoices());
+};
+
 function App() {
   const [answer, setAnswer] = useState('');
   const [choices, setChoices] = useState([]);
@@ -78,39 +96,11 @@ function App() {
     if (event.target.value !== 'Restart') return;
 
     setUserAnswer('');
-    const correctColor = generateRandomColor();
-    const randomizeChoices = () => {
-      const orderedChoices = [
-        correctColor,
-        generateRandomColor(),
-        generateRandomColor()
-      ];
-      const randomizedChoices = orderedChoices.sort(
-        (a, b) => 0.5 - Math.random()
-      );
-      return randomizedChoices;
-    };
-
-    setAnswer(correctColor);
-    setChoices(randomizeChoices());
+    createGame(generateRandomColor, setAnswer, setChoices);
   };
 
   useEffect(() => {
-    const correctColor = generateRandomColor();
-    const randomizeChoices = () => {
-      const orderedChoices = [
-        correctColor,
-        generateRandomColor(),
-        generateRandomColor()
-      ];
-      const randomizedChoices = orderedChoices.sort(
-        (a, b) => 0.5 - Math.random()
-      );
-      return randomizedChoices;
-    };
-
-    setAnswer(correctColor);
-    setChoices(randomizeChoices());
+    createGame(generateRandomColor, setAnswer, setChoices);
   }, []);
 
   const buttonChoices = choices.map((choice, index) => {
