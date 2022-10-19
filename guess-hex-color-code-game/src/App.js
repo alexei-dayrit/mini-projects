@@ -19,6 +19,24 @@ const setButtonStyling = (answer, userAnswer, text) => {
   return style;
 };
 
+const renderResults = (userAnswer, correctAnswer) => {
+  if (userAnswer) {
+    if (userAnswer === correctAnswer) {
+      return <h2 className="results correct">Correct!</h2>;
+    } else {
+      return (
+        <div className="results">
+          <h1 className="incorrect">Incorrect!</h1>
+          <h3>
+            The correct answer is{' '}
+            <span className="correct">{correctAnswer}</span>
+          </h3>
+        </div>
+      );
+    }
+  }
+};
+
 function App() {
   const [answer, setAnswer] = useState('');
   const [choices, setChoices] = useState([]);
@@ -122,19 +140,7 @@ function App() {
         <h2 className="col-full">Take your guess:</h2>
         {buttonChoices}
       </div>
-
-      {userAnswer ? (
-        userAnswer === answer ? (
-          <h2 className="results correct">Correct!</h2>
-        ) : (
-          <div className="results">
-            <h1 className="incorrect">Incorrect!</h1>
-            <h3>
-              The correct answer is <span className="correct">{answer}</span>
-            </h3>
-          </div>
-        )
-      ) : null}
+      {renderResults(userAnswer, answer)}
     </section>
   );
 }
