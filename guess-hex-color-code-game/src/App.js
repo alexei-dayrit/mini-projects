@@ -37,22 +37,24 @@ const renderResults = (userAnswer, correctAnswer) => {
   }
 };
 
+const shuffle = array => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
+  }
+  return array;
+};
+
 const createGame = (generateRandomColor, setAnswer, setChoices) => {
   const correctColor = generateRandomColor();
-  const randomizeChoices = () => {
-    const orderedChoices = [
-      correctColor,
-      generateRandomColor(),
-      generateRandomColor()
-    ];
-    const randomizedChoices = orderedChoices.sort(
-      (a, b) => 0.5 - Math.random()
-    );
-    return randomizedChoices;
-  };
-
+  const orderedChoices = [
+    correctColor,
+    generateRandomColor(),
+    generateRandomColor()
+  ];
+  const randomizedChoices = shuffle(orderedChoices);
   setAnswer(correctColor);
-  setChoices(randomizeChoices());
+  setChoices(randomizedChoices);
 };
 
 function App() {
