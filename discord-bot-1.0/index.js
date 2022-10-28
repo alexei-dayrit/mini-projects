@@ -15,6 +15,8 @@ client.on('ready', () => {
 });
 
 client.on('messageCreate', msg => {
+  console.log(msg.author.tag);
+  console.log(msg.createdAt.toDateString());
   console.log(msg.content);
 });
 
