@@ -23,7 +23,7 @@ client.on('ready', () => console.log(`Logged in as ${client.user.username}!`));
 const main = async () => {
   const commands = [
     {
-      name: 'test',
+      name: 'ping',
       description: 'Testing command'
     }
   ];
@@ -39,6 +39,14 @@ const main = async () => {
 };
 
 main();
+
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isChatInputCommand()) return;
+
+  if (interaction.commandName === 'ping') {
+    await interaction.reply('Pong!');
+  }
+});
 
 // client.on('messageCreate', msg => {
 //   console.log(msg.author.tag);
