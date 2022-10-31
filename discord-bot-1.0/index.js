@@ -21,19 +21,29 @@ const rest = new REST({ version: 10 }).setToken(TOKEN);
 client.on('ready', () => console.log(`Logged in as ${client.user.username}!`));
 
 const main = async () => {
+  const commands = [
+    {
+      name: 'test',
+      description: 'Testing command'
+    }
+  ];
   try {
     console.log('Started refreshing application (/) commands.');
-    await rest.put(Routes.applicationGuildCommands(CLIENT_ID), GUILD_ID);
+    await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+      body: commands
+    });
+    client.login(TOKEN);
   } catch (err) {
     console.error(err);
   }
 };
 
-client.on('messageCreate', msg => {
-  console.log(msg.author.tag);
-  console.log(msg.createdAt.toDateString());
-  console.log(msg.content);
-});
+main();
 
-client.login(TOKEN);
+// client.on('messageCreate', msg => {
+//   console.log(msg.author.tag);
+//   console.log(msg.createdAt.toDateString());
+//   console.log(msg.content);
+// });
+
 // client.destroy();
