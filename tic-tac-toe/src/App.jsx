@@ -4,8 +4,8 @@ import './App.css';
 function App() {
 
   return (
-    <div>
-      Hello Vite!
+    <div className='h-screen flex justify-center items-center'>
+      <div className='bg-orange-400 w-32 h-32'></div>
     </div>
   );
 }
