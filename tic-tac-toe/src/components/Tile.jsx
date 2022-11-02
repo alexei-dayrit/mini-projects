@@ -15,8 +15,8 @@ const Tile = ({ currentPlayer }) => {
   return (
     <div
       onClick={handleClick}
-      className='w-20 h-20 sm:w-32 sm:h-32 border-2 border-white'>
-      {tileValue}
+      className='w-20 h-20 sm:w-32 sm:h-32 flex border-2 border-white'>
+      <h1 className="w-full text-4xl sm:text-7xl flex justify-center items-center">{tileValue}</h1>
     </div>
 
   );
