@@ -1,13 +1,9 @@
-import { useState } from 'react';
-import Board from './Board';
-
-const INITIAL_GAME_STATE = [null, null, null, null, null, null, null, null, null];
+import Board from './components/Board';
 
 function App() {
-  const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
 
   return (
-    <Board gameState={gameState}/>
+    <Board />
   );
 }
 
