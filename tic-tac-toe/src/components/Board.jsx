@@ -9,8 +9,9 @@ const Board = () => {
 
   function handleTileClick(event) {
     if (event.target.tagName !== 'H1') return;
+    if (event.target.textContent) return;
 
-    const tileId = event.target.getAttribute('data-tile-id');
+    const tileId = Number(event.target.getAttribute('data-tile-id'));
     const updatedGameState = [...gameState];
     updatedGameState[tileId] = currentPlayer;
     setGameState(updatedGameState);
@@ -23,11 +24,12 @@ const Board = () => {
   }
 
   return (
-    <div className='w-[300px] sm:w-[450px] flex justify-center items-center gap-3 flex-wrap border-2 border-gray-700 p-4'>
-      {gameState.map((tile, index) => {
+    <div className='w-[300px] sm:w-[450px] flex justify-center items-center gap-3
+      flex-wrap border-2 border-[#3D4856] p-4'>
+      {gameState.map((player, index) => {
         return (<Tile
           key={index}
-          tile={tile}
+          player={player}
           tileId={index}
           handleTileClick={handleTileClick}
         />);
