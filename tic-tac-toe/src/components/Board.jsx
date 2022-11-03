@@ -16,7 +16,9 @@ const Board = () => {
     setGameState(updatedGameState);
 
     if (currentPlayer === 'X') {
-      console.log('x');
+      setCurrentPlayer('O');
+    } else {
+      setCurrentPlayer('X');
     }
   }
 
