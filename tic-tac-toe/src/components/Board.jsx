@@ -24,10 +24,12 @@ const Board = () => {
     <div className='w-[300px] sm:w-[450px] flex justify-center items-center gap-3 flex-wrap border-2 border-gray-700 p-4'>
       {gameState.map((tile, index) => {
         console.log('tile map:', tile);
+        console.log('index map:', index);
         return (<Tile
           key={index}
-          data-tile-id={index}
-          {...{ handleTileClick, tile }}
+          tile={tile}
+          tileId={index}
+          handleTileclick={handleTileClick}
         />);
       })}
     </div>
