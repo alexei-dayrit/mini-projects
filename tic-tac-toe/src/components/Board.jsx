@@ -8,13 +8,13 @@ const Board = () => {
   const [currentPlayer, setCurrentPlayer] = useState('X');
 
   function handleTileClick(event) {
-    const id = event.target.getAttribute('key');
-    console.log('id:', id);
-    const test = gameState.concat([]);
-    console.log(test);
-    test[id] = currentPlayer;
-    console.log(test);
-    setGameState(test);
+    if (event.target.tagName !== 'H1') return;
+
+    const tileId = event.target.getAttribute('data-tile-id');
+    const updatedGameState = [...gameState];
+    updatedGameState[tileId] = currentPlayer;
+    setGameState(updatedGameState);
+
     if (currentPlayer === 'X') {
       console.log('x');
     }
