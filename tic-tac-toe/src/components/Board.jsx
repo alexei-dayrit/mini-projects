@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Tile from './Tile';
 
 const INITIAL_GAME_STATE = [null, null, null, null, null, null, null, null, null];
@@ -7,15 +7,30 @@ const WINNING_STATES = [
   [0, 3, 6], [1, 4, 7], [2, 5, 8],
   [0, 4, 8], [2, 4, 6]
 ];
-/*
-  - Horizontal wins
-  - Vertical wins
-  - Diagnol wins
-*/
 
 const Board = () => {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
   const [currentPlayer, setCurrentPlayer] = useState('X');
+  const [winner, setWinner] = useState('');
+
+  useEffect(() => {
+    checkWinner();
+  }, [gameState]);
+
+  function checkWinner() {
+    for (let index = 0; index < WINNING_STATES.length; index++) {
+      const checkCombo = [];
+      const winningCombo = WINNING_STATES[index];
+
+      winningCombo.forEach(boxIndex => {
+        checkCombo.push(gameState[boxIndex]);
+      });
+
+      if (checkCombo.every(element => element === 'X') || checkCombo.every(element => element === 'O')) {
+        checkCombo[0] === 'X' ? setWinner('X') : setWinner('O');
+      }
+    }
+  }
 
   function handleTileClick(event) {
     if (event.target.tagName !== 'H1') return;
