@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
 import Tile from './Tile';
-
-const INITIAL_GAME_STATE = [null, null, null, null, null, null, null, null, null];
-const WINNING_STATES = [
-  [0, 1, 2], [3, 4, 5], [6, 7, 8],
-  [0, 3, 6], [1, 4, 7], [2, 5, 8],
-  [0, 4, 8], [2, 4, 6]
-];
+import { INITIAL_GAME_STATE, WINNING_STATES } from '../globals';
 
 const Board = () => {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
