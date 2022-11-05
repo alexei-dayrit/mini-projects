@@ -33,6 +33,12 @@ const Board = () => {
     window.alert(`The winner is: ${winner}!`);
   }
 
+  function resetGame() {
+    setGameState(INITIAL_GAME_STATE);
+    setCurrentPlayer('X');
+    setWinner('');
+  }
+
   function handleTileClick(event) {
     if (winner) return;
     if (event.target.tagName !== 'H1') return;
@@ -51,16 +57,25 @@ const Board = () => {
   }
 
   return (
-    <div className='w-[300px] sm:w-[450px] flex justify-center items-center gap-3
-      flex-wrap border-2 border-[#3D4856] p-4'>
-      {gameState.map((player, index) => {
-        return (<Tile
-          key={index}
-          player={player}
-          tileId={index}
-          handleTileClick={handleTileClick}
-        />);
-      })}
+    <div>
+      <div className='w-[300px] sm:w-[450px] flex justify-center items-center gap-3
+        flex-wrap border-2 border-[#3D4856] p-4'>
+        {gameState.map((player, index) => {
+          return (<Tile
+            key={index}
+            player={player}
+            tileId={index}
+            handleTileClick={handleTileClick}
+          />);
+        })}
+      </div>
+      <div className='mt-4 text-center'>
+        <button
+          className='hover:scale-105 hover:bg-slate-300 p-1 border-2 border-[#3D4856]'
+          onClick={resetGame}>
+          Reset Game
+        </button>
+      </div>
     </div>
   );
 };
