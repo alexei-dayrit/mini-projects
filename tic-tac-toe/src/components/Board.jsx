@@ -9,9 +9,12 @@ const Board = () => {
 
   useEffect(() => {
     checkWinner();
-  }, [gameState]);
+    if (winner) setTimeout(() => handleWinAlert(), 500);
+  }, [gameState, winner]);
 
   function checkWinner() {
+    if (winner) return;
+
     for (let index = 0; index < WINNING_STATES.length; index++) {
       const checkCombo = [];
       const winningCombo = WINNING_STATES[index];
@@ -24,6 +27,10 @@ const Board = () => {
         checkCombo[0] === 'X' ? setWinner('X') : setWinner('O');
       }
     }
+  }
+
+  function handleWinAlert() {
+    window.alert(`The winner is: ${winner}!`);
   }
 
   function handleTileClick(event) {
