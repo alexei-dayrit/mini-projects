@@ -34,6 +34,7 @@ const Board = () => {
   }
 
   function handleTileClick(event) {
+    if (winner) return;
     if (event.target.tagName !== 'H1') return;
     if (event.target.textContent) return;
 
