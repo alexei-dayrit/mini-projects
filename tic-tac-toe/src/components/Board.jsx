@@ -1,13 +1,40 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Tile from './Tile';
-
-const INITIAL_GAME_STATE = [null, null, null, null, null, null, null, null, null];
+import { INITIAL_GAME_STATE, WINNING_STATES } from '../globals';
 
 const Board = () => {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
   const [currentPlayer, setCurrentPlayer] = useState('X');
+  const [winner, setWinner] = useState('');
+
+  useEffect(() => {
+    checkWinner();
+    if (winner) setTimeout(() => handleWinAlert(), 500);
+  }, [gameState, winner]);
+
+  function checkWinner() {
+    if (winner) return;
+
+    for (let index = 0; index < WINNING_STATES.length; index++) {
+      const checkCombo = [];
+      const winningCombo = WINNING_STATES[index];
+
+      winningCombo.forEach(boxIndex => {
+        checkCombo.push(gameState[boxIndex]);
+      });
+
+      if (checkCombo.every(element => element === 'X') || checkCombo.every(element => element === 'O')) {
+        checkCombo[0] === 'X' ? setWinner('X') : setWinner('O');
+      }
+    }
+  }
+
+  function handleWinAlert() {
+    window.alert(`The winner is: ${winner}!`);
+  }
 
   function handleTileClick(event) {
+    if (winner) return;
     if (event.target.tagName !== 'H1') return;
     if (event.target.textContent) return;
 
