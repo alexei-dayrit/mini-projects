@@ -27,10 +27,19 @@ const Board = () => {
         checkCombo[0] === 'X' ? setWinner('X') : setWinner('O');
       }
     }
+    setTimeout(() => {
+      if (!gameState.includes(null) && !winner) {
+        setTimeout(() => handleDrawAlert(), 500);
+      }
+    }, 0);
   }
 
   function handleWinAlert() {
     window.alert(`The winner is: ${winner}!`);
+  }
+
+  function handleDrawAlert() {
+    window.alert('There are no more spaces...the game has ended in a draw!');
   }
 
   function resetGame() {
