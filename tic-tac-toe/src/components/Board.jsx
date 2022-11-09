@@ -4,12 +4,12 @@ import { INITIAL_GAME_STATE, WINNING_STATES } from '../globals';
 
 const Board = () => {
   const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
-  const [currentPlayer, setCurrentPlayer] = useState('X');
+  const [currentPlayer, setCurrentPlayer] = useState('O');
   const [winner, setWinner] = useState('');
 
   useEffect(() => {
     checkWinner();
-    if (winner) setTimeout(() => handleWinAlert(), 500);
+    if (winner || !gameState.includes(null)) setTimeout(() => hanldeGameEnd(), 500);
   }, [gameState, winner]);
 
   function checkWinner() {
@@ -27,19 +27,14 @@ const Board = () => {
         checkCombo[0] === 'X' ? setWinner('X') : setWinner('O');
       }
     }
-    setTimeout(() => {
-      if (!gameState.includes(null) && !winner) {
-        setTimeout(() => handleDrawAlert(), 500);
-      }
-    }, 0);
   }
 
-  function handleWinAlert() {
-    window.alert(`The winner is: ${winner}!`);
-  }
-
-  function handleDrawAlert() {
-    window.alert('There are no more spaces...the game has ended in a draw!');
+  function hanldeGameEnd() {
+    if (!gameState.includes(null) && !winner) {
+      window.alert('There are no more spaces...the game has ended in a draw!');
+    } else {
+      window.alert(`The winner is: ${winner}!`);
+    }
   }
 
   function resetGame() {
