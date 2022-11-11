@@ -21,7 +21,9 @@ function App() {
         {sudokuGrid.map((col, colIndex) => (
           <div key={colIndex} className='col'>
             {col.map((cell, cellIndex) => (
-              <div key={cellIndex} className='cell'>{cell}</div>
+              <div key={cellIndex} className='cell'>
+                <input value={cell}/>
+              </div>
             ))}
           </div>
         ))}

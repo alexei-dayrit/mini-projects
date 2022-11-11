@@ -8,6 +8,7 @@
 .grid {
   justify-content: center;
   display: grid;
+  gap: 2px;
   grid-template-columns: repeat(9, 40px);
 }
 
@@ -15,4 +16,9 @@
   width: 40px;
   height: 40px;
   border: 1px solid white;
+}
+
+input {
+  width: 25px;
+  height: 25px;
 }
