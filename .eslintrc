@@ -55,7 +55,13 @@
       }
     ],
     "react/jsx-filename-extension": [
-      "error"
+      "error",
+      {
+        "extensions": [
+          ".tsx",
+          ".jsx"
+        ]
+      }
     ]
   },
   "overrides": [
