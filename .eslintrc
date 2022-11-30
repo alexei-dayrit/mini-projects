@@ -9,6 +9,9 @@
       "version": "detect"
     }
   },
+  "globals": {
+    "React": "readonly"
+  },
   "extends": [
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
