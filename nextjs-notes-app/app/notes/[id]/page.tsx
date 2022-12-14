@@ -4,9 +4,7 @@ export const revalidate = 10;
 
 async function getNote(noteId: string) {
   const db = new PocketBase('http://127.0.0.1:8090');
-  const records = await db.collection('notes').getOne(noteId
-  );
-  console.log('records:', records)
+  const records = await db.collection('notes').getOne(noteId);
   return records;
 }
 
