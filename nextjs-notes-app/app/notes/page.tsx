@@ -10,6 +10,7 @@ export const dynamic = 'auto',
 
 async function getNotes() {
   const db = new PocketBase('http://127.0.0.1:8090');
+
   const records = await db.collection('notes').getList(1, 25);
   return records?.items as any[];
 }
@@ -30,7 +31,6 @@ export default async function NotesPage() {
 
 function Note({ note }: any) {
   const {id, title, content, created} = note || {};
-  console.log(note)
   return (
     <Link href={`/notes/${id}`}>
       <div>
