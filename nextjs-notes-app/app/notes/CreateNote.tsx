@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 interface formEvent {
@@ -16,6 +17,8 @@ const formDefault = {
 
 export default function CreateNote() {
   const [newNote, setNewNote] = useState(formDefault);
+
+  const router = useRouter();
 
   const handleChange = (event: formEvent) => {
     const value = event.target.value;
@@ -34,7 +37,9 @@ export default function CreateNote() {
       },
       body: JSON.stringify(newNote)
     });
+
     setNewNote(formDefault)
+    router.refresh();
   };
 
   return (
