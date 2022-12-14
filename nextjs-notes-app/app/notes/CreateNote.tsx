@@ -6,14 +6,16 @@ interface formEvent {
   target: {
     value: string;
     name: string;
-  }
+  };
 }
 
+const formDefault = {
+  title: '',
+  content: ''
+};
+
 export default function CreateNote() {
-  const [newNote, setNewNote] = useState({
-    title: '',
-    content: ''
-  });
+  const [newNote, setNewNote] = useState(formDefault);
 
   const handleChange = (event: formEvent) => {
     const value = event.target.value;
@@ -24,8 +26,19 @@ export default function CreateNote() {
     });
   };
 
+  const handleSubmit = async (event: any) => {
+    await fetch('http://127.0.0.1:8090/api/collections/notes/records', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newNote)
+    });
+    setNewNote(formDefault)
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h1>Create a new note</h1>
       <input
         type="text"
@@ -40,6 +53,7 @@ export default function CreateNote() {
         value={newNote.content}
         onChange={handleChange}
       />
+      <button type="submit">Add note</button>
     </form>
   );
 }
