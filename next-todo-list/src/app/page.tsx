@@ -1,6 +1,15 @@
+import { TodoItem } from '@/components/TodoItem';
+import { prisma } from '@/db';
 import Link from 'next/link';
 
-export default function Home() {
+function getTodos() {
+  return prisma.todo.findMany();
+}
+
+export default async function Home() {
+  // await prisma.todo.create({ data: { title: 'test', complete: false } });
+  const todos = await getTodos();
+
   return (
     <>
       <header className="flex justify-between items-center mb-4">
@@ -8,12 +17,15 @@ export default function Home() {
         <Link
           className="border border-slate-300 text-slate-300 px-2 py-1 rounded
           hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
-          href="/new"
-        >
+          href="/new">
           New
         </Link>
       </header>
-
+        <ul className="pl-4">
+        {todos.map(todo => (
+          <TodoItem key={todo.id} {...todo} />
+        ))}
+      </ul>
     </>
   );
 }
